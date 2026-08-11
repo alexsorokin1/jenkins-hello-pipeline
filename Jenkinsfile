@@ -1,12 +1,12 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.12-slim'
-            args '-v jenkins-pip-cache:/root/.cache/pip'
-        }
-    }
+	stage('Lint') {
+            steps {
+                sh 'pip install --user ruff'
+                sh '/tmp/.local/bin/ruff check .'
+            }
+        } 
 
-    stages {
+   stages {
         stage('Checkout') {
             steps {
                 checkout scm
